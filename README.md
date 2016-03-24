@@ -1,2 +1,6 @@
-# HelloWorld
-"Hello, World!" examples of IP Street API Interaction
+# "Hello, IP Street!"
+This repo contains "Hello, World!" examples of how to interact with the IP Street suite of API Services.
+
+Each example requires no inputs and will pretty print the API call response to the console when called.  
+
+For full documentation on the IP Street APIs, head over to [docs.ipstreet.com](http://docs.ipstreet.com/).
