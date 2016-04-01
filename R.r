@@ -9,7 +9,7 @@ library(httr)
 hello_world<- function(){
 
     r = POST(url = "https://api.ipstreet.com/v1/sandbox/claim_only",
-        add_headers(Authorization = "sandbox_api_key"),
+        add_headers(`x-api-key`="sandbox_api_key"),
         body = list(raw_text= "The quick brown fox jumps over the lazy dog"),
         encode ="json")
 
