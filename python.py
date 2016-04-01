@@ -13,7 +13,7 @@ def hello_world():
     Prints a standard response json object when called """
 
     endpoint = 'https://api.ipstreet.com/v1/sandbox/claim_only'
-    headers = {'Authorization': 'sandbox_api_key'}
+    headers = {'x-api-key': "sandbox_api_key"}
     payload = json.dumps({'raw_text': 'The quick brown fox jumps over the lazy dog'})
     r = requests.post(endpoint, headers=headers, data=payload)
 
