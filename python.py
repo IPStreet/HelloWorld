@@ -7,7 +7,7 @@ def hello_world_sandbox():
     Prints a standard response json object when called.
      """
 
-    endpoint = 'https://api.ipstreet.com/v1/sandbox/claim_only'
+    endpoint = 'https://api.ipstreet.com/v1/claim_only'
     headers = {'x-api-key': "Live API Key"}
     payload = json.dumps({'raw_text': 'The quick brown fox jumps over the lazy dog'})
     r = requests.post(endpoint, headers=headers, data=payload)
@@ -54,7 +54,7 @@ def get_all_pages(owner):
 
 
 if __name__ == '__main__':
-    hello_world_sandbox()  
+    hello_world_sandbox()  # semantic concept search requiring no inputs
 
     search_by_owner(owner='microsoft', page_number=1)  # get just first page of results
 
