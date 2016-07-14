@@ -8,7 +8,7 @@ def hello_world_sandbox():
      """
 
     endpoint = 'https://api.ipstreet.com/v1/claim_only'
-    headers = {'x-api-key': "Live API Key"}
+    headers = {'x-api-key': 'Live API Key'}
     payload = json.dumps({'raw_text': 'The quick brown fox jumps over the lazy dog'})
     r = requests.post(endpoint, headers=headers, data=payload)
 
@@ -47,10 +47,10 @@ def get_all_pages(owner):
 
         # perform an insert each record into your database here
 
-        print("{} pages received".format(current_page_count))
+        print('{} pages received'.format(current_page_count))
         current_page_count += 1
 
-    print("{} total pages received".format(current_page_count))
+    print('{} total pages received'.format(current_page_count))
 
 
 if __name__ == '__main__':
