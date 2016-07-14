@@ -8,7 +8,7 @@ Just call hello_world() and a standard concept search query response will be pre
 """
 
 
-def hello_world():
+def hello_world_sandbox():
     """ Hello World! example Concept Search API call
     Prints a standard response json object when called """
 
@@ -22,4 +22,4 @@ def hello_world():
 
 
 if __name__ == '__main__':
-    hello_world()
+    hello_world_sandbox()
