@@ -2,7 +2,6 @@ import requests
 import json
 
 
-
 def search_by_owner(owner, page_number):
     """If you have an API key, you can use this method to search for all patents owned by a given company.
     The method takes an owner name input and page number, returns target page of results from /data/patent
@@ -41,7 +40,6 @@ def get_all_pages(owner):
 
 
 if __name__ == '__main__':
-    hello_world_sandbox()  # semantic concept search requiring no inputs
 
     search_by_owner(owner='microsoft', page_number=1)  # get just first page of results
 
