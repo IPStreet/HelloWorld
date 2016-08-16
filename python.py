@@ -2,19 +2,6 @@ import requests
 import json
 
 
-def hello_world_sandbox():
-    """ Hello World! example Concept Search API call
-    Prints a standard response json object when called.
-     """
-
-    endpoint = 'https://api.ipstreet.com/v1/claim_only'
-    headers = {'x-api-key': 'Live API Key'}
-    payload = json.dumps({'raw_text': 'The quick brown fox jumps over the lazy dog'})
-    r = requests.post(endpoint, headers=headers, data=payload)
-
-    print(json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': ')))
-    return
-
 
 def search_by_owner(owner, page_number):
     """If you have an API key, you can use this method to search for all patents owned by a given company.
