@@ -7,7 +7,7 @@ def search_by_owner(owner, page_number):
     The method takes an owner name input and page number, returns target page of results from /data/patent
     """
     endpoint = 'https://api.ipstreet.com/v1/data/patent'
-    headers = {'x-api-key': 'Live API Key'}
+    headers = {'x-api-key': '5AsaMTe6HUypUlAqv3Rw3E6Pvjo4dYL64Rr2z2va'}
     payload = json.dumps({'q': {'owner': owner, 'offset': page_number}})
     r = requests.post(endpoint, headers=headers, data=payload)
 
@@ -24,7 +24,7 @@ def get_all_pages(owner):
     response = search_by_owner(owner, 1)
 
     # set total page count
-    total_page_count = response['totalPage']
+    total_page_count = int(response['totalPage'])
 
     # follow-on searches to fill data set
     current_page_count = 2  # start at page 2
@@ -39,8 +39,32 @@ def get_all_pages(owner):
     print('{} total pages received'.format(current_page_count))
 
 
+def search_claim_only(input):
+    """If you have an API key, you can use this method to search for patents conceptually similar to your given input
+    The method takes a raw text input and returns the first page of results from /claim_only"""
+    endpoint = 'https://api.ipstreet.com/v1/claim_only'
+    headers = {'x-api-key': "5AsaMTe6HUypUlAqv3Rw3E6Pvjo4dYL64Rr2z2va"}
+    payload = json.dumps({'raw_text': str(input),
+                          'q': {'start_date': '2002',
+                            'start_date_type': 'priority_date',
+                            'end_date': '2015',
+                            'end_date_type': 'publication_date',
+                            'applied': True,
+                            'granted': True,
+                            'expired': False,
+                            'response_size': 10000}})
+    r = requests.post(endpoint, headers=headers, data=payload)
+
+    print(json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': ')))
+
+
 if __name__ == '__main__':
 
-    search_by_owner(owner='microsoft', page_number=1)  # get just first page of results
+    search_by_owner(owner='microsoft', page_number=1)  # get just first page of results, print to console
+    get_all_pages(owner='microsoft')  # get all results for owner=microsoft, print to console
 
-    get_all_pages(owner='microsoft')  # get all results
+    query_text = "a configurable battery pack charging system coupled to said charging system controller, said " \
+            "battery pack and a power source, wherein said configurable battery pack charging system charges " \
+            "said battery pack in accordance with said battery pack charging conditions set by " \
+            "said charging system controller."
+    search_claim_only(query_text) #Concept seach at the /claim_only/ endpoint for the input string, print to console
