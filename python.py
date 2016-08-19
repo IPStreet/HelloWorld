@@ -7,7 +7,7 @@ def search_by_owner(owner, page_number):
     The method takes an owner name input and page number, returns target page of results from /data/patent
     """
     endpoint = 'https://api.ipstreet.com/v1/data/patent'
-    headers = {'x-api-key': '5AsaMTe6HUypUlAqv3Rw3E6Pvjo4dYL64Rr2z2va'}
+    headers = {'x-api-key': 'PUT YOUR API KEY HERE'}
     payload = json.dumps({'q': {'owner': owner, 'offset': page_number}})
     r = requests.post(endpoint, headers=headers, data=payload)
 
@@ -43,7 +43,7 @@ def search_claim_only(input):
     """If you have an API key, you can use this method to search for patents conceptually similar to your given input
     The method takes a raw text input and returns the first page of results from /claim_only"""
     endpoint = 'https://api.ipstreet.com/v1/claim_only'
-    headers = {'x-api-key': "5AsaMTe6HUypUlAqv3Rw3E6Pvjo4dYL64Rr2z2va"}
+    headers = {'x-api-key': "PUT YOUR API KEY HERE"}
     payload = json.dumps({'raw_text': str(input),
                           'q': {'start_date': '2002',
                             'start_date_type': 'priority_date',
