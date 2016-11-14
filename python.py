@@ -15,9 +15,9 @@ def search_by_owner(owner, page_number, api_key):
     return r.json()
 
 
-def get_all_pages(owner, api_key):
+def get_first_4_pages(owner, api_key):
     """When you want to get all the results of your query, you must loop over all the pages in the given results set
-    This method returns all the results of search_by_owner() method above
+    This method returns first 4 pages of search_by_owner() method above
     """
 
     # #first call to get to total_asset_count, insert records to DB
@@ -28,8 +28,8 @@ def get_all_pages(owner, api_key):
 
     # follow-on searches to fill data set
     current_page_count = 2  # start at page 2
-    while current_page_count <= total_page_count:
-        response = search_by_owner(owner, current_page_count)
+    while current_page_count <= 4:
+        response = search_by_owner(owner, current_page_count, api_key)
 
         # perform an insert each record into your database here
 
@@ -60,13 +60,13 @@ def search_claim_only(input,api_key):
 
 if __name__ == '__main__':
 
-    Live_API_Key = 'YOUR_LIVE_API_KEY_GOES_HERE'
+    Live_API_Key = '5AsaMTe6HUypUlAqv3Rw3E6Pvjo4dYL64Rr2z2va'
 
     # get just first page of results, print to console
     search_by_owner(owner='microsoft', page_number=1, api_key=Live_API_Key)
 
-    # get all results for owner=microsoft, print to console
-    get_all_pages(owner='microsoft', api_key=Live_API_Key)
+    # get first 4 pages of results for owner=microsoft, print to console
+    get_first_4_pages(owner='microsoft', api_key=Live_API_Key)
 
     # Concept seach at the /claim_only/ endpoint for the input string, print to console
     query_text = "a configurable battery pack charging system coupled to said charging system controller, said " \
