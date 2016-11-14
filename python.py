@@ -45,7 +45,7 @@ def search_claim_only(input,api_key):
     endpoint = 'https://api.ipstreet.com/v1/claim_only'
     headers = {'x-api-key': api_key}
     payload = json.dumps({'raw_text': str(input),
-                          'q': {'start_date': '2002',
+                          'q': {'start_date': '2002-01-01',
                             'start_date_type': 'priority_date',
                             'end_date': '2015-01-01',
                             'end_date_type': 'publication_date',
