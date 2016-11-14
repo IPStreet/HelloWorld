@@ -36,8 +36,6 @@ def get_first_4_pages(owner, api_key):
         print('{} pages received'.format(current_page_count))
         current_page_count += 1
 
-    print('{} total pages received'.format(current_page_count))
-
 
 def search_claim_only(input,api_key):
     """If you have an API key, you can use this method to search for patents conceptually similar to your given input
