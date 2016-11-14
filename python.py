@@ -47,12 +47,12 @@ def search_claim_only(input):
     payload = json.dumps({'raw_text': str(input),
                           'q': {'start_date': '2002',
                             'start_date_type': 'priority_date',
-                            'end_date': '2015',
+                            'end_date': '2015-01-01',
                             'end_date_type': 'publication_date',
                             'applied': True,
                             'granted': True,
                             'expired': False,
-                            'response_size': 10000}})
+                            'max_expected_results': 10000}})
     r = requests.post(endpoint, headers=headers, data=payload)
 
     print(json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': ')))
