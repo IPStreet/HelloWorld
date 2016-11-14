@@ -58,7 +58,7 @@ def search_claim_only(input,api_key):
 
 if __name__ == '__main__':
 
-    Live_API_Key = '5AsaMTe6HUypUlAqv3Rw3E6Pvjo4dYL64Rr2z2va'
+    Live_API_Key = 'Live_API_Key'
 
     # get just first page of results, print to console
     search_by_owner(owner='microsoft', page_number=1, api_key=Live_API_Key)
