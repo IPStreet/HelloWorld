@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 search_by_owner() {
     # If you have an API key, you can use this method to search for all patents owned by a given company.
     # The method takes an owner name input and page number, returns target page of results from /data/patent
@@ -10,13 +8,15 @@ search_by_owner() {
     contentType="Content-Type:application/json"
 
     payload="{'q':{'owner':$1,'offset':$2}}"
-
+    
     r="curl $endpoint -X POST -H $apiKey -H $contentType -d $payload"
     RESPONSE=`$r`
 
     # returning response
     echo "$RESPONSE"
 }
+
+# search_by_owner 'Microsoft' 1
 
 get_all_pages() {
     # When you want to get all the results of your query, you must loop over all the pages in the given results set
@@ -35,7 +35,7 @@ get_all_pages() {
     for (( current_page_count=2; current_page_count<total_page_count; current_page_count++ ))
     do
         response=$( search_by_owner $1 $current_page_count )
-
+        
         echo "$response"
 
         # perform an insert each record into your database here
@@ -53,4 +53,5 @@ get_all_pages() {
 
 # get all results for owner=microsoft, print to console
 # get_all_pages 'microsoft'
+
 
