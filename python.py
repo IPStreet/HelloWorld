@@ -11,7 +11,7 @@ def search_by_owner(owner, page_number, api_key):
     payload = json.dumps({'q': {'current_owner': owner, 'page': page_number}})
     r = requests.post(endpoint, headers=headers, data=payload)
 
-    print(r.text)
+    print(json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))) # pretty prints results
     return r.json()
 
 
@@ -52,7 +52,7 @@ def search_claim_only(input,api_key):
                             'max_expected_results': 10000}})
     r = requests.post(endpoint, headers=headers, data=payload)
 
-    print(json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': ')))
+    print(json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))) # pretty prints results
 
 
 if __name__ == '__main__':
