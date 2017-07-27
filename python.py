@@ -11,7 +11,7 @@ def search_by_owner(owner, page_number, api_key):
     payload = json.dumps({'q': {'current_owner': owner, 'page': page_number}})
     r = requests.post(endpoint, headers=headers, data=payload)
 
-    print(json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))) # pretty prints results
+    print(json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': ')))  # pretty prints results
     return r.json()
 
 
@@ -37,7 +37,7 @@ def get_first_4_pages(owner, api_key):
         current_page_count += 1
 
 
-def search_claim_only(input,api_key):
+def search_claim_only(input, api_key):
     """If you have an API key, you can use this method to search for patents conceptually similar to your given input
     The method takes a raw text input and returns the first page of results from /semantic_search'"""
     endpoint = 'https://api.ipstreet.com/v3/semantic_search'
@@ -45,14 +45,24 @@ def search_claim_only(input,api_key):
     payload = json.dumps({'raw_text': str(input),
                           "index_type": "claim_only",
                           'q': {'grant_date_start': '2002-01-01',
-                            'publication_end_date': '2015-01-01',
-                            'applied': True,
-                            'granted': True,
-                            'expired': False,
-                            'max_expected_results': 10000}})
+                                'publication_end_date': '2015-01-01',
+                                'applied': True,
+                                'granted': True,
+                                'expired': False,
+                                'max_expected_results': 10000}})
     r = requests.post(endpoint, headers=headers, data=payload)
 
-    print(json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))) # pretty prints results
+    print(json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': ')))  # pretty prints results
+
+
+def download_description_text(text_description_link, api_key):
+    """Downloads the XML version of given patents description text"""
+    endpoint = text_description_link
+    headers = {'x-api-key': api_key}
+
+    r = requests.get(endpoint, headers=headers)
+    print(r.text)
+    return r.text
 
 
 if __name__ == '__main__':
@@ -65,9 +75,14 @@ if __name__ == '__main__':
     # get first 4 pages of results for owner=microsoft, print to console
     get_first_4_pages(owner='microsoft', api_key=Live_API_Key)
 
-    # Concept seach at the /claim_only/ endpoint for the input string, print to console
+    # Concept search at the /claim_only/ endpoint for the input string, print to console
     query_text = "a configurable battery pack charging system coupled to said charging system controller, said " \
-            "battery pack and a power source, wherein said configurable battery pack charging system charges " \
-            "said battery pack in accordance with said battery pack charging conditions set by " \
-            "said charging system controller."
+                 "battery pack and a power source, wherein said configurable battery pack charging system charges " \
+                 "said battery pack in accordance with said battery pack charging conditions set by " \
+                 "said charging system controller."
     search_claim_only(query_text, api_key=Live_API_Key)
+
+    # download and print the description text for the first 5 patents owned by microsoft
+    results = search_by_owner(owner='microsoft', page_number=1, api_key=Live_API_Key)
+    for asset in results['assets'][:5]:
+        download_description_text(asset['text_description_link'], Live_API_Key)
