@@ -6,9 +6,9 @@ def search_by_owner(owner, page_number, api_key):
     """If you have an API key, you can use this method to search for all patents owned by a given company.
     The method takes an owner name input and page number, returns target page of results from /data/patent
     """
-    endpoint = 'https://api.ipstreet.com/v2/data/patent'
+    endpoint = 'https://api.ipstreet.com/v3/patent_data'
     headers = {'x-api-key': api_key}
-    payload = json.dumps({'q': {'owner': owner, 'offset': page_number}})
+    payload = json.dumps({'q': {'current_owner': owner, 'page': page_number}})
     r = requests.post(endpoint, headers=headers, data=payload)
 
     print(r.text)
@@ -24,7 +24,7 @@ def get_first_4_pages(owner, api_key):
     response = search_by_owner(owner, 1, api_key)
 
     # set total page count
-    total_page_count = int(response['totalPage'])
+    total_page_count = int(response['total_pages'])
 
     # follow-on searches to fill data set
     current_page_count = 2  # start at page 2
@@ -39,14 +39,13 @@ def get_first_4_pages(owner, api_key):
 
 def search_claim_only(input,api_key):
     """If you have an API key, you can use this method to search for patents conceptually similar to your given input
-    The method takes a raw text input and returns the first page of results from /claim_only"""
-    endpoint = 'https://api.ipstreet.com/v2/claim_only'
+    The method takes a raw text input and returns the first page of results from /semantic_search'"""
+    endpoint = 'https://api.ipstreet.com/v3/semantic_search'
     headers = {'x-api-key': api_key}
     payload = json.dumps({'raw_text': str(input),
-                          'q': {'start_date': '2002-01-01',
-                            'start_date_type': 'priority_date',
-                            'end_date': '2015-01-01',
-                            'end_date_type': 'publication_date',
+                          "index_type": "claim_only",
+                          'q': {'grant_date_start': '2002-01-01',
+                            'publication_end_date': '2015-01-01',
                             'applied': True,
                             'granted': True,
                             'expired': False,
